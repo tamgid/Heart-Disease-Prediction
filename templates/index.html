@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heart Disease Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 20px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-container input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .result {
+            font-size: 1.5em;
+            color: #4CAF50;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Heart Disease Prediction</h2>
+        <form action="/predict" method="post">
+            <label for="age">age:</label>
+            <input type="number" name="age" required>
+            
+            <label for="sex">sex:</label>
+            <input type="number" name="sex" required>
+            
+            <label for="cp">cp:</label>
+            <input type="number" name="cp" required>
+            
+            <label for="trestbps">trestbps:</label>
+            <input type="number" name="trestbps" required>
+            
+            <label for="chol">chol:</label>
+            <input type="number" name="chol" required>
+
+            <label for="fbs">fbs:</label>
+            <input type="number" name="fbs" required>
+
+            <label for="restecg">restecg:</label>
+            <input type="number" name="restecg" required>
+
+            <label for="thalach">thalach:</label>
+            <input type="number" name="thalach" required>
+
+            <label for="exang">exang:</label>
+            <input type="number" name="exang" required>
+
+            <label for="oldpeak">oldpeak:</label>
+            <input type="number" name="oldpeak" required>
+
+            <label for="slope">slope:</label>
+            <input type="number" name="slope" required>
+
+            <label for="ca">ca:</label>
+            <input type="number" name="ca" required>
+
+            <label for="thal">thal:</label>
+            <input type="number" name="thal" required>
+            
+            <input type="submit" value="Predict">
+        </form>
+        {% if prediction_text %}
+        <div class="result">{{ prediction_text }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
