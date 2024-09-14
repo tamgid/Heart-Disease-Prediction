@@ -23,7 +23,7 @@ def predict():
     
     # Make prediction
     prediction = model.predict(final_features)
-    output = 'Placed' if prediction[0] == 1 else 'Not Placed'
+    output = 'The person has heart disease' if prediction[0] == 1 else 'The person does not have heart disease'
 
     return render_template('index.html', prediction_text='Prediction: {}'.format(output))
 
