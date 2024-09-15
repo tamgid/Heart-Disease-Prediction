@@ -42,51 +42,90 @@
 <body>
     <div class="form-container">
         <h2>Heart Disease Prediction</h2>
-        <form action="/predict" method="post">
+        <form id="predictionForm">
             <label for="age">Age:</label>
-            <input type="number" name="age" required>
-            
+            <input type="number" name="age" id="age" required>
+
             <label for="sex">Select Sex:</label>
-            <input type="number" name="sex" required>
-            
+            <input type="number" name="sex" id="sex" required>
+
             <label for="cp">Chest Pain type:</label>
-            <input type="number" name="cp" required>
-            
+            <input type="number" name="cp" id="cp" required>
+
             <label for="trestbps">Resting Blood Pressure:</label>
-            <input type="number" name="trestbps" required>
-            
+            <input type="number" name="trestbps" id="trestbps" required>
+
             <label for="chol">Serum Cholestoral in mg/dl:</label>
-            <input type="number" name="chol" required>
+            <input type="number" name="chol" id="chol" required>
 
             <label for="fbs">Fasting Blood Sugar:</label>
-            <input type="number" name="fbs" required>
+            <input type="number" name="fbs" id="fbs" required>
 
             <label for="restecg">Resting Electrocardiographic results:</label>
-            <input type="number" name="restecg" required>
+            <input type="number" name="restecg" id="restecg" required>
 
             <label for="thalach">Maximum Heart rate Achieved:</label>
-            <input type="number" name="thalach" required>
+            <input type="number" name="thalach" id="thalach" required>
 
             <label for="exang">Exercise Induced Angina:</label>
-            <input type="number" name="exang" required>
+            <input type="number" name="exang" id="exang" required>
 
             <label for="oldpeak">ST depression induced by exercise relative to rest:</label>
-            <input type="number" name="oldpeak" required>
+            <input type="number" name="oldpeak" id="oldpeak" required>
 
             <label for="slope">Slope of the Peak Exercise ST Segment:</label>
-            <input type="number" name="slope" required>
+            <input type="number" name="slope" id="slope" required>
 
             <label for="ca">Number of major Vessels:</label>
-            <input type="number" name="ca" required>
+            <input type="number" name="ca" id="ca" required>
 
             <label for="thal">Thallium Stress Test:</label>
-            <input type="number" name="thal" required>
-            
+            <input type="number" name="thal" id="thal" required>
+
             <input type="submit" value="Predict">
         </form>
-        {% if prediction_text %}
-        <div class="result">{{ prediction_text }}</div>
-        {% endif %}
+
+        <div id="result" class="result"></div>
     </div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent form submission
+
+            // Gather form data and convert to JSON
+            const formData = {
+                age: document.getElementById('age').value,
+                sex: document.getElementById('sex').value,
+                cp: document.getElementById('cp').value,
+                trestbps: document.getElementById('trestbps').value,
+                chol: document.getElementById('chol').value,
+                fbs: document.getElementById('fbs').value,
+                restecg: document.getElementById('restecg').value,
+                thalach: document.getElementById('thalach').value,
+                exang: document.getElementById('exang').value,
+                oldpeak: document.getElementById('oldpeak').value,
+                slope: document.getElementById('slope').value,
+                ca: document.getElementById('ca').value,
+                thal: document.getElementById('thal').value
+            };
+
+            // Send data to the API
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the prediction result
+                document.getElementById('result').textContent = data.prediction;
+            })
+            .catch(error => {
+                document.getElementById('result').textContent = 'Error: ' + error.message;
+            });
+        });
+    </script>
 </body>
 </html>
